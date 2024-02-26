@@ -18,7 +18,7 @@ class ObcSqcCheck:
     """This class is the main class of the OBC/SQC algorithm."""
 
     @staticmethod
-    def run(df: pd.DataFrame) -> pd.DataFrame:  # noqa: D102, PLR0915, C901
+    def run(df: pd.DataFrame) -> tuple[pd.DataFrame, float]:  # noqa: D102, PLR0915, C901
         model: str = df["model"].iloc[0]
 
         (
@@ -253,7 +253,8 @@ class ObcSqcCheck:
         final_df_24h: pd.DataFrame = final_df.head(24)
 
         final_df_24h = ObcSqcCheck.daily_annotations(final_df_24h)
-        return final_df_24h
+
+        return final_df_24h, total_rewards
 
     @staticmethod
     def daily_annotations(inp_df: pd.DataFrame) -> pd.DataFrame:  # noqa: D102
